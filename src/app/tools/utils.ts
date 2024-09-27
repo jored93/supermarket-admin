@@ -1,6 +1,5 @@
 import { environment } from './../../environments/environment';
 import { throwError } from 'rxjs';
-import { DatePipe } from '@angular/common';
 export class Utils {
 
   static getCurrentDate() {

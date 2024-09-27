@@ -15,7 +15,13 @@ ul li {
     font-size: 1rem;
 }
 
-.container ul li .material-icons {
+.container ul li a  {
+    color: #ffff;
+    text-decoration: none; 
+    opacity: 70%;
+}
+
+.container ul li a .material-icons {
     font-size: 1rem;
 }
 
@@ -56,4 +62,10 @@ ul li {
     display: flex;
     align-items: center;
     gap: .3rem;
+}
+
+.container ul li a:hover,
+.container ul li a:active
+{
+    opacity: 100%;
 }

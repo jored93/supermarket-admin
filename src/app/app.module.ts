@@ -9,17 +9,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
-
-import { NavbarComponent } from './components/navbar/navbar.component';
-
+import { AppRoutingModule, routes } from './app.routes';
 
 @NgModule({
   declarations: [
-    NavbarComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,
