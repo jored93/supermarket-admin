@@ -18,3 +18,8 @@ table {
 .mat-mdc-table .mat-mdc-header-cell{
     color: #030303;
 }
+
+.containerTable table tr td {
+    text-align: center;
+    padding: 1rem 0;
+}
