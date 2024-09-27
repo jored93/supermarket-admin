@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SearchComponent } from '../../components/search/search.component';
 import { TitleComponent } from '../../components/title/title.component';
 import { TableComponent } from '../../components/table/table.component';
+import { CustomerService } from '../../core/services/customers/customer.service';
 
 @Component({
   selector: 'app-clients',
@@ -20,11 +21,26 @@ export class ClientsComponent implements OnInit {
   buttonTitleSearch: string = 'Buscar';
 
   displayedColumns: string[] = ['identification', 'fullName', 'email'];
-  dataSource = new MatTableDataSource<CustomerElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<CustomerElement>([]);
 
-  constructor() {}
+  constructor(private customerService: CustomerService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadCustomers();
+  }
+
+  async loadCustomers () {
+    
+    this.customerService.searchAllCustomers().subscribe(
+      (customers: any) => {
+        console.log('customers: ', customers);
+        this.dataSource.data = customers as CustomerElement[];
+      },
+      (error) => {
+        console.error('Error al cargar clientes:', error);
+      }
+    );
+  }
 }
 
 export interface CustomerElement {

@@ -1,10 +1,9 @@
 import { Utils } from '../../../tools/utils';
-import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as AppConst from '../../../app.const';
-import { catchError, mergeMap, retry } from 'rxjs/operators';
-import { from, Observable } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +12,7 @@ export class CustomerService {
   constructor(private http: HttpClient) {}
 
   searchAllCustomers() {
+
     return this.getObservable(
       {},
       Utils.getCustomers(),
