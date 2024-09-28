@@ -1,0 +1,43 @@
+.containerFormModal {
+    background: #fff;
+    color: #000;
+}
+
+.containerFormModal .h1Title,
+.containerFormModal .label {
+    color: #000;
+}
+
+.containerFormModal .groupBtn button {
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    padding: .575rem .95rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: .25rem;
+
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    color: #000;
+    background-color: #d2006e;
+    border-color: #d2006e;
+}
+
+.containerFormModal .groupBtn button.btnClose {
+    background-color: #8b8b8b;
+    border-color: #8b8b8b;
+}
+
+.containerFormModal .groupField {
+    display: flex;
+    flex-direction: column;
+}
+
+.containerFormModal form {
+    padding-top: 1rem;
+}
+
+.containerFormModal form .groupField input {
+    background: #fff;
+}

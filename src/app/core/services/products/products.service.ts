@@ -1,46 +1,23 @@
-import { Utils } from '../../../tools/utils';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as AppConst from '../../../app.const';
 import { catchError, retry } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import * as AppConst from '../../../app.const';
+import { Utils } from '../../../tools/utils';
 
-interface Customer {
-  name: string;
-  lastName: string;
-  identification: string;
-  email: string;
-}
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
+export class ProductsService {
 
-
-export class CustomerService {
   constructor(private http: HttpClient) {}
 
-  searchAllCustomers() {
+  searchAllProducts() {
 
     return this.getObservable(
       {},
       Utils.getCustomers(),
-      AppConst.HTTP_METHOD_GET
-    ).pipe(retry(1), catchError(Utils.parseErrorHandle));
-  }
-
-  createCustomer(customer: Customer){
-    return this.getObservable(
-      customer,
-      Utils.getCustomers(),
-      AppConst.HTTP_METHOD_POST
-    ).pipe(retry(1), catchError(Utils.parseErrorHandle));
-  }
-
-  searchValidCustomersPaid( identification: string ) {
-    return this.getObservable(
-      {},
-      Utils.getCustomerById(identification),
       AppConst.HTTP_METHOD_GET
     ).pipe(retry(1), catchError(Utils.parseErrorHandle));
   }

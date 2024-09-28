@@ -4,6 +4,8 @@ import { SearchComponent } from '../../components/search/search.component';
 import { TitleComponent } from '../../components/title/title.component';
 import { TableComponent } from '../../components/table/table.component';
 import { CustomerService } from '../../core/services/customers/customer.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FormModalComponent } from '../../components/formModal/formModal.component';
 
 @Component({
   selector: 'app-clients',
@@ -23,14 +25,37 @@ export class ClientsComponent implements OnInit {
   displayedColumns: string[] = ['identification', 'fullName', 'email'];
   dataSource = new MatTableDataSource<CustomerElement>([]);
 
-  constructor(private customerService: CustomerService) {}
+  constructor(
+    private customerService: CustomerService,
+    public dialog: MatDialog
+  ) {}
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(FormModalComponent, {
+      width: '400px',
+      data: {
+        fields: [
+          { label: 'Identificación', type: 'text', placeholder: 'Ingresa tu cedula' },
+          { label: 'Nombre', type: 'text', placeholder: 'Ingresa tu nombre' },
+          { label: 'Apellido', type: 'text', placeholder: 'Ingresa tu apellido' },
+          { label: 'Correo', type: 'email', placeholder: 'Ingresa tu correo' }
+        ],
+      },
+    });
+
+    // Obtener el resultado del formulario y pasarlo a la función btnActionSubmit
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.btnActionSubmit(result);  // Pasar los valores del formulario
+      }
+    });
+  }
 
   ngOnInit() {
     this.loadCustomers();
   }
 
   async loadCustomers () {
-    
     this.customerService.searchAllCustomers().subscribe(
       (customers: any) => {
         console.log('customers: ', customers);
@@ -41,6 +66,26 @@ export class ClientsComponent implements OnInit {
       }
     );
   }
+
+  async btnActionSubmit(formData: any) {
+    console.log('Botón de acción submit con datos del formulario:', formData);
+    const newUser = {
+      name: formData.Nombre,
+      lastName: formData.Apellido,
+      identification: formData.Identificación,
+      email: formData.Correo,
+    }
+
+    this.customerService.createCustomer(newUser).subscribe(
+      (_customer) => { 
+        this.loadCustomers()
+      },
+      (error) => {
+        console.error('Error al cargar clientes:', error);
+      }
+    );
+
+  }
 }
 
 export interface CustomerElement {
@@ -48,26 +93,3 @@ export interface CustomerElement {
   identification: string;
   email: string;
 }
-
-const ELEMENT_DATA: CustomerElement[] = [
-  {identification: '1', fullName: 'Hydrogen', email: 'H'},
-  {identification: '2', fullName: 'Helium', email: 'He'},
-  {identification: '3', fullName: 'Lithium', email: 'Li'},
-  {identification: '4', fullName: 'Beryllium', email: 'Be'},
-  {identification: '5', fullName: 'Boron', email: 'B'},
-  {identification: '6', fullName: 'Carbon', email: 'C'},
-  {identification: '7', fullName: 'Nitrogen', email: 'N'},
-  {identification: '8', fullName: 'Oxygen', email: 'O'},
-  {identification: '9', fullName: 'Fluorine', email: 'F'},
-  {identification: '10', fullName: 'Neon', email: 'Ne'},
-  {identification: '11', fullName: 'Sodium', email: 'Na'},
-  {identification: '12', fullName: 'Magnesium', email: 'Mg'},
-  {identification: '13', fullName: 'Aluminum', email: 'Al'},
-  {identification: '14', fullName: 'Silicon', email: 'Si'},
-  {identification: '15', fullName: 'Phosphorus', email: 'P'},
-  {identification: '16', fullName: 'Sulfur', email: 'S'},
-  {identification: '17', fullName: 'Chlorine', email: 'Cl'},
-  {identification: '18', fullName: 'Argon', email: 'Ar'},
-  {identification: '19', fullName: 'Potassium', email: 'K'},
-  {identification: '20', fullName: 'Calcium', email: 'Ca'},
-];

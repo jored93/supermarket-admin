@@ -1,5 +1,5 @@
 <div class="containerComponent">
-  <app-title [title]="pageTitle" [btnTitle]="buttonTitle" ></app-title>
+  <app-title [title]="pageTitle" [btnTitle]="buttonTitle" (btnAction)="openDialog()"></app-title>
   <app-search [title]="clientSearchLabel" [btnTitle]="buttonTitleSearch" [placeholder]="clientSearchPlaceholder" ></app-search>
   <app-table [displayedColumns]="displayedColumns" [dataSource]="dataSource" ></app-table>
 </div>
